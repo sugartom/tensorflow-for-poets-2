@@ -10,3 +10,4 @@ android.iml
 android/assets/*
 
 exported_*/*
+android/tfmobile/tfmobile.iml

@@ -213,35 +213,35 @@ if __name__ == "__main__":
                       {input_operation.outputs[0]: t})
     end=time.time()
 
-    # Yitao-TLS-Begin
-    export_path_base = "exported_mobilenet_v1_1.0_224_inference"
-    export_path = os.path.join(
-        compat.as_bytes(export_path_base),
-        compat.as_bytes(str(FLAGS.model_version)))
-    print('Exporting trained model to', export_path)
-    builder = saved_model_builder.SavedModelBuilder(export_path)
+    # # Yitao-TLS-Begin
+    # export_path_base = "exported_mobilenet_v1_1.0_224_inference"
+    # export_path = os.path.join(
+    #     compat.as_bytes(export_path_base),
+    #     compat.as_bytes(str(FLAGS.model_version)))
+    # print('Exporting trained model to', export_path)
+    # builder = saved_model_builder.SavedModelBuilder(export_path)
 
-    tensor_info_x = tf.saved_model.utils.build_tensor_info(input_operation.outputs[0])
-    tensor_info_y = tf.saved_model.utils.build_tensor_info(output_operation.outputs[0])
+    # tensor_info_x = tf.saved_model.utils.build_tensor_info(input_operation.outputs[0])
+    # tensor_info_y = tf.saved_model.utils.build_tensor_info(output_operation.outputs[0])
 
-    prediction_signature = tf.saved_model.signature_def_utils.build_signature_def(
-        inputs={'normalized_image': tensor_info_x},
-        outputs={'scores': tensor_info_y},
-        method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME)
+    # prediction_signature = tf.saved_model.signature_def_utils.build_signature_def(
+    #     inputs={'normalized_image': tensor_info_x},
+    #     outputs={'scores': tensor_info_y},
+    #     method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME)
 
-    legacy_init_op = tf.group(tf.tables_initializer(), name='legacy_init_op')
-    builder.add_meta_graph_and_variables(
-        sess, [tf.saved_model.tag_constants.SERVING],
-        signature_def_map={
-            'predict_images':
-                prediction_signature,
-        },
-        legacy_init_op=legacy_init_op)
+    # legacy_init_op = tf.group(tf.tables_initializer(), name='legacy_init_op')
+    # builder.add_meta_graph_and_variables(
+    #     sess, [tf.saved_model.tag_constants.SERVING],
+    #     signature_def_map={
+    #         'predict_images':
+    #             prediction_signature,
+    #     },
+    #     legacy_init_op=legacy_init_op)
 
-    builder.save()
+    # builder.save()
 
-    print('Done exporting!')
-    # Yitao-TLS-End
+    # print('Done exporting!')
+    # # Yitao-TLS-End
 
 
   results = np.squeeze(results)
